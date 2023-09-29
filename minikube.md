@@ -1,3 +1,8 @@
+Type of instance: Ubuntu
+CPU: At least 4 cores
+
+
+
 ### Installing kubectl
 
 ```
@@ -44,6 +49,14 @@ chmod +x ./installer_linux
 source ~/.bash_profile
 ```
 
+----------------------------------------------
+If the above command do not work and give error 400 Bad Request use the below command.
+----------------------------------------------
+
+```
+apt install golang -y
+```
+
 ```
 cd cri-dockerd
 mkdir bin
@@ -61,15 +74,6 @@ systemctl enable --now cri-docker.socket
 
 ### Installing crictl:
 
-### Using Curl:
-
-```
-VERSION="v1.24.1"
-curl -L https://github.com/kubernetes-sigs/cri-tools/releases/download/$VERSION/crictl-${VERSION}-linux-amd64.tar.gz --output crictl-${VERSION}-linux-amd64.tar.gz
-sudo tar zxvf crictl-$VERSION-linux-amd64.tar.gz -C /usr/local/bin
-rm -f crictl-$VERSION-linux-amd64.tar.gz
-```
-
 ### Using wget:
 ```
 VERSION="v1.24.1"
@@ -79,6 +83,29 @@ rm -f crictl-$VERSION-linux-amd64.tar.gz
 ```
 ------------------------------------------------------------------
 ### Starting minikube
+```
+minikube start --vm-driver=none
+```
+
+------------------------------------------------------------------
+If there is an error after running the above command then:
+Install containernetworking-plugins from the link given in the error
+------------------------------------------------------------------
+
+```
+CNI_PLUGIN_VERSION="v1.3.0"
+CNI_PLUGIN_TAR="cni-plugins-linux-amd64-$CNI_PLUGIN_VERSION.tgz" # change arch if not on amd64
+CNI_PLUGIN_INSTALL_DIR="/opt/cni/bin"
+
+curl -LO "https://github.com/containernetworking/plugins/releases/download/$CNI_PLUGIN_VERSION/$CNI_PLUGIN_TAR"
+sudo mkdir -p "$CNI_PLUGIN_INSTALL_DIR"
+sudo tar -xf "$CNI_PLUGIN_TAR" -C "$CNI_PLUGIN_INSTALL_DIR"
+rm "$CNI_PLUGIN_TAR"
+```
+-----------------------------------------------------------------
+Now again try the command
+-----------------------------------------------------------------
+
 ```
 minikube start --vm-driver=none
 ```
