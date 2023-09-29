@@ -12,8 +12,7 @@ sudo mv ./kubectl /usr/local/bin/kubectl
 ------------------------------------------------------------------
 ### Install docker
 ```
-sudo apt-get update && \
->     sudo apt-get install docker.io -y
+sudo apt-get update && sudo apt-get install docker.io -y
 ```
 ------------------------------------------------------------------
 ### Installing minikube
